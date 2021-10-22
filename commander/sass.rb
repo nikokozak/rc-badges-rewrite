@@ -53,18 +53,40 @@ class Sass
     Dir.chdir(file_path) do
       Dir['**/*'].each do |f|
         if File.file?(f) && is_sass?(f)
-          path = Pathname.new(f)
-          category = path.dirname.basename.to_s == "." ? file_path : path.dirname.basename
-          filename = Sass.filename(f)
-          name = filename.gsub(/[\-_]/, " ").capitalize
-          style = File.read(File.join(path.dirname, filename + ".css"))
-          tag = filename + ".svg"
-
-          result[category.to_s] = (result[category.to_s] || []).push({name: name, style: style, tag: tag})
+          node = Sass.build_node(file_path, f)
+          cat = node[:category]
+          result[cat] = (result[cat] || []).push(node)
         end
       end
     end
     
     result
   end
+
+  private
+
+  def self.build_node(base_path, file)
+    path = Pathname.new(file)
+    category = Sass.parent_folder(path) == "." ? base_path : Sass.parent_folder(path)
+    filename = Sass.filename(file)
+    title = Sass.filename_to_title(filename)
+    style = File.read(File.join(path.dirname, filename + ".css"))
+    svg_file = File.join(path.dirname, filename + ".svg")
+
+    { title: title,
+      filename: filename,
+      style: style,
+      svg_file: svg_file,
+      path: path.to_s,
+      category: category }
+  end
+
+  def self.parent_folder(pathname)
+    pathname.dirname.basename.to_s
+  end
+
+  def self.filename_to_title(filename)
+    filename.gsub(/[\-_]/, " ").capitalize
+  end
+
 end
