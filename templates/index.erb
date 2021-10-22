@@ -2,8 +2,29 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
-    <%= render_internal("templates/_categories.erb") %>   
+    <header>
+      <div>
+        <img id="site-logo" src="./logo.svg" />
+        <h1><strong>RC</strong> Tags</h1>
+        <h3><strong>Recurse Center</strong> bling for your awesome projects!</h3>
+
+        <div class="tags">
+          <p>#RC</p>
+          <p>#SWAG</p>
+          <p>#WOW</p>
+        </div>
+
+        <h3>Sup big daddy</h3>
+        <h3>Sup Sup</h3>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+    <content>
+      <%= render_internal("templates/_categories.erb") %>   
+    </content>
   </body>
 </html>

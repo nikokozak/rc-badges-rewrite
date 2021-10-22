@@ -11,12 +11,6 @@ body {
 header {
   text-align: center;
 }
-header h1 {
-  font-weight: 400;
-}
-header h3 {
-  font-weight: 400;
-}
 
 .tags {
   display: inline-block;
@@ -24,10 +18,6 @@ header h3 {
 .tags p {
   display: inline-block;
   margin-left: 1em;
-  padding: 0.5em 1em 0.5em 1em;
-  background-color: black;
-  color: white;
-  border-radius: 0.3em;
 }
 .tags p:first-child {
   margin-left: 0;

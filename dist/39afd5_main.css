@@ -1,0 +1,24 @@
+* {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+}
+
+.tags {
+  display: flex;
+}
+.tags p {
+  margin-left: 1em;
+}
+.tags p:first-child {
+  margin-left: 0;
+}
+
+.rc-tag {
+  width: 50px;
+}
+
+a {
+  font-family: sans-serif;
+}
+
+/*# sourceMappingURL=main.css.map */
