@@ -26,9 +26,6 @@ class Sass
   end
 
   def self.run(file_path='.')
-    file_path = Pathname.new(file_path)
-
-
     Dir['**/*', base: file_path].each do |f|
       f = File.join(file_path, f)
 
