@@ -20,6 +20,7 @@ class Sass
   def self.call_sass(input_file, output_file=nil)
     input_path = Pathname.new(input_file)
 
+
     fh = input_path.dirname
     fo = File.join(fh, Sass.filename(input_file) + '.css')
     %x{sass #{input_file} #{fo}}
@@ -54,7 +55,7 @@ class Sass
       Dir['**/*'].each do |f|
         if File.file?(f) && is_sass?(f)
           node = Sass.build_node(file_path, f)
-          cat = node[:category]
+          cat = node[:category].gsub(/[\-_]/, '').to_sym
           result[cat] = (result[cat] || []).push(node)
         end
       end
@@ -72,11 +73,13 @@ class Sass
     title = Sass.filename_to_title(filename)
     style = File.read(File.join(path.dirname, filename + ".css"))
     svg_file = File.join(path.dirname, filename + ".svg")
+    svg_contents = File.read(svg_file)
 
     { title: title,
       filename: filename,
       style: style,
       svg_file: svg_file,
+      svg_contents: svg_contents,
       path: path.to_s,
       category: category }
   end

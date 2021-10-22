@@ -4,9 +4,8 @@
     <% tags.each do |tag| %>
       <div class="card">
         <div class="viewer">
-          <style><%= tag[:style] %></style>
           <div class="<%= tag[:filename] %>">
-            <img src="<%= tag[:svg_file] %>" alt="<%= tag[:title] %>"/>
+            <%= method(render).call "templates/tag_template.erb", {tag: tag} %>
           </div>
         </div>
         <div class="info">

@@ -2,10 +2,24 @@ require_relative 'sass.rb'
 require 'erb'
 require 'fileutils'
 
-tree = Sass.new('test').tree
+class Page
+  def initialize(title="Home")
+    @index = "templates/index_template.erb"
+    @tag = "templates/tag_template.erb"
+    @categories = Sass.new('test').tree
+  end
 
-template = ERB.new(File.read("commander/template.erb"))
-result = template.result_with_hash(categories: tree)
+  def render(file: @index, env: {})
+    template = ERB.new(File.read(file))
+    template.result_with_hash(env)
+  end
+end
+
+def render(file, env)
+  template = ERB.new(File.read(file))
+  template.result_with_hash(env)
+end
+
 
 def write_safe(file, content)
   FileUtils.mkdir_p('.safe') if not File.exist?('.safe')
@@ -17,7 +31,6 @@ def write_safe(file, content)
   File.write(file, content)
 end
 
+result = Page.new.render(env: {categories: Sass.new('test').tree, render: :render})
 write_safe("index.html", result)
-
-
 
