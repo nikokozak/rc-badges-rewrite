@@ -1,4 +1,5 @@
 require_relative 'sass.rb'
+require_relative 'tags.rb'
 require 'erb'
 require 'fileutils'
 
@@ -6,10 +7,13 @@ class Site
 
   def initialize(name:"Home", templates:"templates")
     @queue = Dir['[^_]*.erb', base: templates].map { |f| File.join(templates, f) }
-    @categories = Sass.new('tags').tree
+
+    tags = Tags.new('tags')
+    tags.process
+    @categories = tags.tree
   end
 
-  def render(files: @queue, out: "./dist")
+  def render(files: @queue, out: "./dist", styles: 'styles')
     FileUtils.mkdir(out) if not File.exist? out 
 
     files.each do |f|
@@ -21,6 +25,8 @@ class Site
 
       p "Transformed #{f} -> #{outfile}"
     end
+
+    Sass.run(styles)
   end
 
   # Render function to use in nested templates

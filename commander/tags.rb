@@ -81,7 +81,3 @@ class Tags
 
 end
 
-tags = Tags.new
-tags.process
-pp tags.tree
-
