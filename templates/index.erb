@@ -1,11 +1,12 @@
-<% categories.each do |category, tags| %>
+<% @categories.each do |category, tags| %>
+  <% p category %>
   <h2><%= category %></h2>
   <div id="content">
     <% tags.each do |tag| %>
       <div class="card">
         <div class="viewer">
           <div class="<%= tag[:filename] %>">
-            <%= method(render).call "templates/tag_template.erb", {tag: tag} %>
+            <%= render_internal "templates/_tag.erb", {tag: tag} %>
           </div>
         </div>
         <div class="info">
