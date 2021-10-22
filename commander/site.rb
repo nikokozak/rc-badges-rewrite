@@ -31,9 +31,13 @@ class Site
   end
 
   # Render function to use in nested templates
-  def render_internal(file, env)
+  def render_internal(file, env={})
     template = ERB.new(File.read(file))
-    template.result_with_hash(env)
+    b = binding
+    env.each do |key, val| 
+      b.local_variable_set(key.to_sym, val)
+    end
+    template.result(b)
   end
 
   def write_safe(file, content)
