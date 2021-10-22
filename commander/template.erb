@@ -1,14 +1,19 @@
-<%= @tags.each do |tag| %>
-  <div class="card">
-    <div class="viewer">
-      <style><%= tag.style %></style>
-      <div class="<%= tag.name %>">
-        <img src="<%= tag.file %>" alt="<%= tag.name %>"/>
+<% categories.each do |category, tags| %>
+  <h2><%= category %></h2>
+  <div id="content">
+    <% tags.each do |tag| %>
+      <div class="card">
+        <div class="viewer">
+          <style><%= tag[:style] %></style>
+          <div class="<%= tag[:name] %>">
+            <img src="<%= tag[:tag] %>" alt="<%= tag[:name] %>"/>
+          </div>
+        </div>
+        <div class="info">
+          <p><%= tag[:name] %></p>
+          <button class="copy-snippet-button">Copy Snippet</button>
+        </div>
       </div>
-    </div>
-    <div class="info">
-      <p><%= tag.name %>
-      <button class="copy-snippet-button">Copy Snippet</button>
-    </div>
+    <% end %>
   </div>
 <% end %>

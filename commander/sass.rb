@@ -25,7 +25,7 @@ class Sass
     %x{sass #{input_file} #{fo}}
   end
 
-  def run()
+  def run
     Sass.run(@folder) 
   end
 
@@ -39,6 +39,10 @@ class Sass
         Dir.children(".").each { |f| Sass.run(File.join(file_path, f)) } 
       end
     end
+  end
+
+  def tree
+    Sass.tree(@folder)
   end
 
   def self.tree(file_path='.')
