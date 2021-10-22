@@ -58,6 +58,7 @@ class Site
     arr_of_files.reduce({}) do |result, f|
       if File.exist? f
         out = bust ? File.join(dist_folder, cache_bust_filename(f)) : dist_folder
+        delete_matching("*_#{filename(f) + ".css"}", dist_folder) if bust
         FileUtils.cp(f, out)
         p "Copied file #{ f } -> #{ dist_folder }"
         result[/\A(.*\/)(.*\.[a-zA-Z0-9]+)\z/.match(f)[2]] = bust ? cache_bust_filename(f) : f
@@ -90,9 +91,12 @@ class Site
       html_files.each do |file|
         html = File.read(file)
         File.write(file, html.gsub(/#{original}/, busted))
-        # p "Updated #{ original } to #{ busted } in #{ file }"
       end
     end
+  end
+
+  def delete_matching(pattern, base=".")
+    FileUtils.rm( Dir[pattern, base: base].map { |f| File.join(base, f) } )
   end
 
 end
