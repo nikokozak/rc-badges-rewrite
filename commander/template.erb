@@ -1,0 +1,14 @@
+<%= @tags.each do |tag| %>
+  <div class="card">
+    <div class="viewer">
+      <style><%= tag.style %></style>
+      <div class="<%= tag.name %>">
+        <img src="<%= tag.file %>" alt="<%= tag.name %>"/>
+      </div>
+    </div>
+    <div class="info">
+      <p><%= tag.name %>
+      <button class="copy-snippet-button">Copy Snippet</button>
+    </div>
+  </div>
+<% end %>
