@@ -17,12 +17,6 @@ class Tags
     @directory = directory
   end
 
-# def build
-#   p "Processing tags in folder '#{ @directory }'"
-#   Sass.run(@directory)
-#   p "Finished processing tags in folder '#{ @directory }'"
-# end
-
   ##
   # Creates a tree-like structure of nodes carrying tag information.
   # Looks for an svg file, from which it derives its matching css file.
@@ -58,7 +52,7 @@ class Tags
     category = parent == "." ? to_symbol(@directory) : to_symbol(parent)
     basename = basename(file)
     title = basename_to_title(basename)
-    css_path = ensure_exists(change_extension(file, ".css"), "css")
+    css_path = ensure_exists(change_extension(file, ".css"))
     style = File.read(css_path)
     svg_path = file
     svg_contents = File.read(svg_path)
@@ -117,9 +111,9 @@ class Tags
 
   def ensure_exists(file)
     if not File.file?(file)
-      throw Error.new("No #{ File.extname(file) } file found at #{ file }. Please ensure it exists, or that you have transpiled the necessary files.")
+      throw Exception.new("No #{ File.extname(file) } file found at #{ file }. Please ensure it exists, or that you have transpiled the necessary files.")
     else
-      path
+      file
     end
   end
 
