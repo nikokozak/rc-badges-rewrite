@@ -29,6 +29,17 @@ describe Tags do
       expect(tree[:tag2]).to be_truthy
     end
 
+    it "should have base directory as key if not nested" do
+      File.write("tag_tests/one.svg", "svg_content")
+      File.write("tag_tests/one.css", "css_content")
+
+      tree = @tags.tree
+
+      expect(tree[:tagtests]).to be_truthy
+      expect(tree[:tag1]).to be_truthy
+      expect(tree[:tag2]).to be_truthy
+    end
+
     it "should have nodes with correct non-nil content" do
       tree = @tags.tree
       tree.each do |key, nodes| 
@@ -53,8 +64,8 @@ describe Tags do
     end
 
     it "should throw an error if missing css file" do
-      FileUtils.rm("tag_test/tag_1/one.css")
-      expect { tree = @tags.tree } to 
+      FileUtils.rm("tag_tests/tag_1/one.css")
+      expect { tree = @tags.tree }.to raise_error(Exception)
     end
 
     after :all do

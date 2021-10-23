@@ -5,7 +5,7 @@ describe Buster do
 
   describe "initialize" do
     it "should throw on wrong input" do
-      expect { Buster.new("abc") }.to raise_error
+      expect { Buster.new("abc") }.to raise_error(Exception)
     end
 
     it "should create a new instance with a list of files" do
@@ -90,8 +90,6 @@ describe Buster do
       buster = Buster.new(['buster_test/nested/nested_test.css'])
       buster.bust("buster_test/dest", true)
       busted_files = Dir['buster_test/dest/nested/*_nested_test.css']
-
-      p Dir['buster_test/dest/**/*']
 
       expect(File.exist?("buster_test/dest/nested")).to be true
       busted_files.each { |f| expect(File.exist? f).to be true }  

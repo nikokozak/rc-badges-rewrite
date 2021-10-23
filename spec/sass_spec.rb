@@ -75,7 +75,7 @@ describe Sass do
     end
 
     it "should fail on non-existant css file" do
-      expect { Sass.call_sass("test_dir/atest.sass") }.to raise_error
+      expect { Sass.call_sass("test_dir/atest.sass") }.to raise_error(Exception)
     end
 
     after :each do
