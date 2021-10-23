@@ -2,6 +2,22 @@ require_relative '../commander/sass.rb'
 require 'fileutils'
 
 describe Sass do
+
+  # Disable stdout during tests
+  original_stderr = $stderr
+  original_stdout = $stdout
+  before :all do 
+    # Redirect stderr and stdout
+    $stderr = File.open(File::NULL, "w")
+    $stdout = File.open(File::NULL, "w")
+  end
+
+  # Re-enable stdout after tests
+  after :all do 
+    $stderr = original_stderr
+    $stdout = original_stdout
+  end 
+
   describe "is_css?" do
     it "correctly identifies a css file" do
       expect(Sass.is_css?("hey/this/is/a/css_file.css")).to be true
