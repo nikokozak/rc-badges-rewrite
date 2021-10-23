@@ -40,8 +40,11 @@ class Sass
   # +input_file+:: a filepath string, evaluated relative to the cwd.
  
   def self.call_sass(input_file)
+    raise Exception.new("Could not find #{ input_file } in Sass.call_sass!") if (not File.exist?(input_file))
+
     output_file = input_file.sub(/\.[a-zA-Z0-9]+\z/, ".css")
     %x{sass #{input_file} #{output_file}}
+
     p "Sass compiled #{ input_file } -> #{ output_file }"
   end
 
@@ -52,6 +55,9 @@ class Sass
   # +directory+:: A directory path.
 
   def self.run(directory='.')
+    raise Exception.new("No such directory #{ directory } in Sass.run!") if (not File.directory? directory)
+    raise Exception.new("Expected a directory, not file #{ directory } in Sass.run!") if (File.file? directory)
+
     Dir['**/*', base: directory].each do |f|
       f = File.realpath(f, directory)
 

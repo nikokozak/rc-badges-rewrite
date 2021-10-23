@@ -7,7 +7,7 @@ class Buster
     @files = files
     @map = {}
   end
-
+  
   def bust(destination=".")
     rm_busted(destination)
 
