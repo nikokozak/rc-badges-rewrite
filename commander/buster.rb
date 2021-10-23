@@ -9,6 +9,8 @@ class Buster
   end
 
   def bust(destination=".")
+    rm_busted(destination)
+
     @map = @files.each_with_object({}) do |f, result|
       hash = Digest::MD5.hexdigest File.read f
       basename = File.basename f
@@ -27,6 +29,15 @@ class Buster
         File.write f, content.gsub(/#{ original }/, busted)
       end
     end
+  end
+
+  def busted?(filename)
+    f = File.basename(filename)
+    /\A[a-z0-9]{6}_[a-zA-Z0-9\-_]+\.[a-zA-Z0-9]+\z/.match?(f)
+  end
+
+  def rm_busted(directory)
+    FileUtils.rm Dir.children(directory).select(:busted?)
   end
 
 end
