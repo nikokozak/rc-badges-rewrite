@@ -28,10 +28,11 @@ class Renderer
   # Params:
   # +out+:: directory to save generated files to.
 
-  def render(out=@directory)
+  def render(out: @directory, env: {})
+    rendered = []
+
     @queue.each do |f|
-      template = ERB.new(File.read File.join(@directory, f))
-      rendered = template.result(binding)
+      rendered = render_internal(f, env)
       basename = File.basename f, ".erb"
       dirname = File.dirname f
       outfile = File.join(out, dirname, basename + ".html")
@@ -40,7 +41,11 @@ class Renderer
       File.write(outfile, rendered)
 
       p "Transformed #{ f } -> #{ outfile }"
+
+      rendered.push(outfile)
     end
+
+    rendered
   end
 
   ##

@@ -17,6 +17,10 @@ class Tags
     @directory = directory
   end
 
+  def self.[](directory="tags")
+    Tags.new(directory)
+  end
+
   ##
   # Creates a tree-like structure of nodes carrying tag information.
   # Looks for an svg file, from which it derives its matching css file.

@@ -3,6 +3,8 @@ require 'pathname'
 ##
 # Functionality for dealing with Sass (scss, sass) files.
 
+#TODO: Restructure as instance.
+
 class Sass
 
   ##
@@ -39,7 +41,7 @@ class Sass
   # Params:
   # +input_file+:: a filepath string, evaluated relative to the cwd.
  
-  def self.call_sass(input_file)
+  def self.call_sass(input_file, out_dir=".")
     raise Exception.new("Could not find #{ input_file } in Sass.call_sass!") if (not File.exist?(input_file))
 
     output_file = input_file.sub(/\.[a-zA-Z0-9]+\z/, ".css")
@@ -54,12 +56,12 @@ class Sass
   # Params:
   # +directory+:: A directory path.
 
-  def self.run(directory='.')
-    raise Exception.new("No such directory #{ directory } in Sass.run!") if (not File.directory? directory)
-    raise Exception.new("Expected a directory, not file #{ directory } in Sass.run!") if (File.file? directory)
+  def self.render(out: '.')
+    raise Exception.new("No such directory #{ out } in Sass.run!") if (not File.directory? out)
+    raise Exception.new("Expected a directory, not file #{ out } in Sass.run!") if (File.file? out)
 
-    Dir['**/*', base: directory].each do |f|
-      f = File.realpath(f, directory)
+    Dir['**/*', base: out].each do |f|
+      f = File.realpath(f, out)
 
       File.file?(f) && is_sass?(f) && (not is_mixin? f) ? call_sass(f) : next
     end

@@ -35,7 +35,7 @@ class Buster
   #
   # TODO: not all busted files should be deleted, only the ones belonging to this instance.
 
-  def bust(destination=nil, preserve_tree=false)
+  def bust(destination: nil, preserve_tree: false, preserve_original: true)
     FileUtils.mkdir_p(destination) if destination
 
     @map = @files.each_with_object({}) do |f, result|
@@ -58,6 +58,11 @@ class Buster
       result[basename] = new_name
       result
     end
+
+    #TODO: Update documentation here.
+    FileUtils.rm(@files) if (not preserve_original)
+
+    return self
   end
 
   ##
