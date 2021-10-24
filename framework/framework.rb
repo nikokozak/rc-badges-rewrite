@@ -1,5 +1,6 @@
 require 'yaml'
 require_relative 'site.rb'
+require_relative 'watcher.rb'
 
 SETTINGS_FILE = "settings.yml"
 
@@ -14,10 +15,16 @@ class Framework
     mode = parse_mode
     settings = parse_settings(SETTINGS_FILE)
 
-    Site.new(templates: settings["templates_folder"],
-             styles: settings["styles_folder"],
-             out: settings["out_folder"],
-             tags: settings["tags_folder"]).build
+    site = Site.new(templates: settings["templates_folder"],
+                    styles: settings["styles_folder"],
+                    out: settings["out_folder"],
+                    tags: settings["tags_folder"])
+
+    site.build
+
+    if (mode == "dev")
+      Watcher.new(site, settings["watch"]).run
+    end
   end
 
   private

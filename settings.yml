@@ -2,3 +2,8 @@ tags_folder: "tags"
 templates_folder: "templates"
 styles_folder: "styles"
 out_folder: "dist"
+
+watch:
+  - "templates"
+  - "tags"
+  - "styles"
