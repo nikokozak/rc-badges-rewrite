@@ -70,11 +70,10 @@ class Sass
   end
 
   ##
-  # Call the SASS transpiler on a given +directory+. Will search all subdirs
-  # recursively, evaluating sass files, skipping mixins and others. Returns
-  # a list of paths representing the transpiled css files.
+  # Call the SASS transpiler on the instance's +@files+. Returns a list of paths
+  # representing the transpiled css files.
   # Params:
-  # +directory+:: A directory path.
+  # +out+:: A directory path.
 
   def render(out: @directory)
     @files.each_with_object([]) do |f, result|

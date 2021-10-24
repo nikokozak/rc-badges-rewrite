@@ -56,17 +56,17 @@ describe Buster do
 
     it "should write bust files to a given destination" do
       buster = Buster.new(['buster_test/test.css'])
-      buster.bust("buster_test/dest")
+      buster.bust(out: "buster_test/dest")
 
       expect(Dir['buster_test/dest/*_test.css'].empty?).to be false
     end
 
     it "should remove previous bust files in a given destination" do
       buster = Buster.new(['buster_test/test.css'])
-      buster.bust("buster_test/dest")
+      buster.bust(out: "buster_test/dest")
       first_busted_files = Dir['buster_test/dest/*_test.css']
       File.write("buster_test/test.css", "some different content")
-      buster.bust("buster_test/dest")
+      buster.bust(out: "buster_test/dest")
       new_busted_files = Dir['buster_test/dest/*_test.css']
       
       first_busted_files.each { |f| expect(File.exist? f).to be false }  
@@ -77,7 +77,7 @@ describe Buster do
       FileUtils.mkdir_p("buster_test/nested")
       File.write("buster_test/nested/nested_test.css", "some nested content")
       buster = Buster.new(['buster_test/nested/nested_test.css'])
-      buster.bust("buster_test/dest")
+      buster.bust(out: "buster_test/dest")
       busted_files = Dir['buster_test/dest/*_nested_test.css']
 
       expect(File.exist?("buster_test/dest/nested")).to be false
@@ -88,11 +88,21 @@ describe Buster do
       FileUtils.mkdir_p("buster_test/nested")
       File.write("buster_test/nested/nested_test.css", "some nested content")
       buster = Buster.new(['buster_test/nested/nested_test.css'])
-      buster.bust("buster_test/dest", true)
+      buster.bust(out: "buster_test/dest", preserve_tree: true)
       busted_files = Dir['buster_test/dest/nested/*_nested_test.css']
 
       expect(File.exist?("buster_test/dest/nested")).to be true
       busted_files.each { |f| expect(File.exist? f).to be true }  
+    end
+
+    it "should remove originals if the setting is provided" do
+      FileUtils.mkdir_p("buster_test/nested")
+      File.write("buster_test/nested/test.css", "some nested content")
+      buster = Buster.new(['buster_test/nested/test.css'])
+      buster.bust(preserve_original: false)
+
+      expect(File.exist?("buster_test/nested/test.css")).to be false
+      expect(Dir['buster_test/nested/*_test.css'].empty?).to be false
     end
 
     it "should create populate the map with original->busted references" do

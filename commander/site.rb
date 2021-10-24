@@ -5,11 +5,7 @@ require_relative 'renderer.rb'
 
 class Site
 
-  def initialize(name:"Home",
-                 templates:"templates", 
-                 styles: "styles", 
-                 out: "dist",
-                 tags: "tags")
+  def initialize(name:"Home", templates:"templates", styles: "styles", out: "dist", tags: "tags")
     @templates = templates
     @styles = styles
     @name = name

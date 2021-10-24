@@ -18,6 +18,14 @@ class Buster
     @files = files
     @map = {}
   end
+
+  def self.[](directory=".")
+    if (not directory.is_a? Array) && File.directory?(directory_or_files)
+      Buster.new(Dir[File.join(directory_or_files, "**/*.*")])
+    else
+      raise Exception.new("Expected a directory, not #{ directory } for Buster[]!")
+    end
+  end
   
   ##
   # Create cache-busted versions of the files in the instance. Internally uses an
@@ -26,17 +34,17 @@ class Buster
   # new busted name. 
   #
   # +bust+ will delete all previous busted files in the destination before
-  # adding fresh busted files. Optionally, you can provide a +destination+ where
+  # adding fresh busted files. Optionally, you can provide a +out+ destination where
   # files will be output, as well as a +preserve_tree+ option which will preserve
   # copy the origin file into the destination along with its parent folders.
   # Params:
-  # +destination+:: An optional destination for the newly busted files (ALL OTHER BUSTED FILES ARE REMOVED).
-  # +preserve_tree+:: When copying to destination, preserve nested folders.
-  #
+  # +out+:: An optional destination for the newly busted files (ALL OTHER BUSTED FILES ARE REMOVED).
+  # +preserve_tree+:: When copying to destination, preserve nested folders. Doesn't do anything if no +out+ is set.
+  # +preserve_original+:: Whether or not to delete the original, non-hashed input files.
   # TODO: not all busted files should be deleted, only the ones belonging to this instance.
 
-  def bust(destination: nil, preserve_tree: false, preserve_original: true)
-    FileUtils.mkdir_p(destination) if destination
+  def bust(out: nil, preserve_tree: false, preserve_original: true)
+    FileUtils.mkdir_p(out) if out
 
     @map = @files.each_with_object({}) do |f, result|
       hash = Digest::MD5.hexdigest File.read f
@@ -44,22 +52,23 @@ class Buster
       dirname = File.dirname f
       new_name = hash[0...6] + "_" + basename
 
-      out = destination ? destination : dirname
+      destination = out ? out : dirname
 
       if preserve_tree && destination
-        dirname = destination ? path_diff(dirname, destination) : dirname
-        out = File.join(destination, dirname)
-        FileUtils.mkdir_p(out)
+        dirname = out ? path_diff(dirname, out) : dirname
+        destination = File.join(out, dirname)
+        FileUtils.mkdir_p(destination)
       end
-      
-      rm_busted(out)
+ 
+      # TODO: This will remove a hashed file if it follows the format of
+      # 6letters_anything.css
+      rm_busted(destination)
 
-      FileUtils.cp f, File.join(out, new_name)
+      FileUtils.cp f, File.join(destination, new_name)
       result[basename] = new_name
       result
     end
 
-    #TODO: Update documentation here.
     FileUtils.rm(@files) if (not preserve_original)
 
     return self
