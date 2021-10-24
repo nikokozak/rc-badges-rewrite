@@ -29,7 +29,7 @@ class Renderer
   # +out+:: directory to save generated files to.
 
   def render(out: @directory, env: {})
-    rendered = []
+    transformed = []
 
     @queue.each do |f|
       rendered = render_internal(f, env)
@@ -42,10 +42,10 @@ class Renderer
 
       p "Transformed #{ f } -> #{ outfile }"
 
-      rendered.push(outfile)
+      transformed.push(outfile)
     end
 
-    rendered
+    transformed
   end
 
   ##

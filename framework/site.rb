@@ -20,7 +20,9 @@ class Site
     rendered = Renderer[@templates].render(out: @out, env: {tags: tags})
     rendered_styles = Sass['styles'].render(out: @out + "/styles")
 
-    Buster[rendered_styles].bust(preserve_original: false).replace_in(rendered)
+    Buster.new(rendered_styles).bust(preserve_original: false).replace_in(rendered)
   end
 
 end
+
+Site.new.build

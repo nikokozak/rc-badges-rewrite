@@ -1,4 +1,4 @@
-require_relative '../commander/renderer.rb'
+require_relative '../framework/renderer.rb'
 require 'fileutils'
 
 describe Renderer do

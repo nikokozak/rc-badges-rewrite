@@ -1,4 +1,4 @@
-require_relative "../commander/tags.rb"
+require_relative "../framework/tags.rb"
 require 'fileutils'
 
 describe Tags do

@@ -1,4 +1,4 @@
-require_relative '../commander/sass.rb'
+require_relative '../framework/sass.rb'
 require 'fileutils'
 
 describe Sass do

@@ -1,4 +1,4 @@
-require_relative '../commander/buster.rb'
+require_relative '../framework/buster.rb'
 require 'fileutils'
 
 describe Buster do
