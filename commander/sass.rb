@@ -49,7 +49,8 @@ class Sass
   end
 
   ##
-  # Call the SASS transpiler on the +input_file+. Outputs a css file if successful.
+  # Call the SASS transpiler on the +input_file+. Outputs a css file if successful. Will
+  # return the filepath of the transpiled css file.
   # Params:
   # +input_file+:: a filepath string, evaluated relative to the cwd.
  
@@ -70,7 +71,8 @@ class Sass
 
   ##
   # Call the SASS transpiler on a given +directory+. Will search all subdirs
-  # recursively, evaluating sass files, skipping mixins and others.
+  # recursively, evaluating sass files, skipping mixins and others. Returns
+  # a list of paths representing the transpiled css files.
   # Params:
   # +directory+:: A directory path.
 

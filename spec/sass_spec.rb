@@ -134,6 +134,13 @@ describe Sass do
                               'test_dir/two/test.css'])
     end
 
+    it "should return a list of new rendered style files in other output dir" do
+      rendered = @sass.render(out: "test_dist")
+      expect(rendered).to match_array(['test_dist/test.css', 
+                              'test_dist/one/test.css',
+                              'test_dist/two/test.css'])
+    end
+
     it "should not process mixins" do
       @sass.render
       expect(File.exist?("test_dir/_test.css")).to be false
