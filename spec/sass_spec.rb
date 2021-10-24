@@ -8,8 +8,8 @@ describe Sass do
   original_stdout = $stdout
   before :all do 
     # Redirect stderr and stdout
-    $stderr = File.open(File::NULL, "w")
-    $stdout = File.open(File::NULL, "w")
+    #$stderr = File.open(File::NULL, "w")
+    #$stdout = File.open(File::NULL, "w")
   end
 
   # Re-enable stdout after tests
@@ -104,32 +104,46 @@ describe Sass do
       File.write("test_dir/one/test.sass", sass_content)
       File.write("test_dir/one/_test.sass", sass_content)
       File.write("test_dir/two/test.sass", sass_content)
+      @sass = Sass['test_dir']
     end
 
     it "should create new css files" do
-      Sass.run("test_dir")
+      @sass.render
       expect(File.exist?("test_dir/test.css")).to be true
       expect(File.exist?("test_dir/one/test.css")).to be true
       expect(File.exist?("test_dir/two/test.css")).to be true
       expect(File.exist?("test_dir/three/test.css")).to be false
     end
 
+    it "should create new css files in output dir" do
+      @sass.render(out: "test_dist")
+      expect(File.exist?("test_dir/test.css")).to be false
+      expect(File.exist?("test_dir/one/test.css")).to be false
+      expect(File.exist?("test_dir/two/test.css")).to be false
+      expect(File.exist?("test_dir/three/test.css")).to be false
+      expect(File.exist?("test_dist/test.css")).to be true
+      expect(File.exist?("test_dist/one/test.css")).to be true
+      expect(File.exist?("test_dist/two/test.css")).to be true
+      expect(File.exist?("test_dist/three/test.css")).to be false
+    end
+
     it "should not process mixins" do
-      Sass.run("test_dir")
+      @sass.render
       expect(File.exist?("test_dir/_test.css")).to be false
       expect(File.exist?("test_dir/one/_test.css")).to be false
     end
 
     it "should fail on nonexistent dir" do 
-      expect { Sass.run("nonexistent_dir") }.to raise_error
+      expect { Sass['nonexistent_dir'] }.to raise_error(Exception)
     end
 
     it "should fail on file input" do 
-      expect { Sass.run("test_dir/test.sass") }.to raise_error
+      expect { Sass["test_dir/test.sass"] }.to raise_error(Exception)
     end
 
     after :each do
       FileUtils.rm(Dir["test_dir/**/*.*"])
+      FileUtils.rm_rf("test_dist")
     end
 
     after :all do

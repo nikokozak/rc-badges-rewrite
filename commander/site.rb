@@ -18,7 +18,7 @@ class Site
   end
 
   def build
-    Sass[@tags].run
+    Sass[@tags].render
     tags = Tags[@tags].tree
 
     rendered = Renderer[@templates].render(out: @out, env: {tags: tags})
