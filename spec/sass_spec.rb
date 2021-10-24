@@ -8,8 +8,8 @@ describe Sass do
   original_stdout = $stdout
   before :all do 
     # Redirect stderr and stdout
-    #$stderr = File.open(File::NULL, "w")
-    #$stdout = File.open(File::NULL, "w")
+    $stderr = File.open(File::NULL, "w")
+    $stdout = File.open(File::NULL, "w")
   end
 
   # Re-enable stdout after tests
@@ -125,6 +125,13 @@ describe Sass do
       expect(File.exist?("test_dist/one/test.css")).to be true
       expect(File.exist?("test_dist/two/test.css")).to be true
       expect(File.exist?("test_dist/three/test.css")).to be false
+    end
+
+    it "should return a list of new rendered style files" do
+      rendered = @sass.render
+      expect(rendered).to match_array(['test_dir/test.css', 
+                              'test_dir/one/test.css',
+                              'test_dir/two/test.css'])
     end
 
     it "should not process mixins" do

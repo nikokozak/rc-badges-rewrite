@@ -64,6 +64,8 @@ class Sass
 
     %x{sass #{input_file} #{output_file}}
     p "Sass compiled #{ input_file } -> #{ output_file }"
+
+    Sass.sanitize_paths(output_file)
   end
 
   ##
@@ -72,19 +74,29 @@ class Sass
   # Params:
   # +directory+:: A directory path.
 
-  def render(out: '.')
-    out = out == '.' ? @directory : out
-    @files.each do |f|
+  def render(out: @directory)
+    @files.each_with_object([]) do |f, result|
       local_dir = File.dirname f
       full_path = File.realpath(f, @directory)
       out_path = File.join(out, local_dir)
 
-      if File.file?(full_path) && Sass.is_sass?(full_path) && (not Sass.is_mixin? full_path) 
-        Sass.call_sass(full_path, out_path)
+      if sass_and_not_mixin? full_path
+        converted_file = Sass.call_sass(full_path, out_path)
+        result << converted_file
       else 
         next
       end
     end
+  end
+
+  private
+
+  def self.sanitize_paths(path)
+    path.gsub(/\/\.\//, "/") 
+  end
+
+  def sass_and_not_mixin?(path)
+    File.file?(path) && Sass.is_sass?(path) && (not Sass.is_mixin?(path))
   end
 
 end
