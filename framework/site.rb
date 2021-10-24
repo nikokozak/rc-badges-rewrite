@@ -33,14 +33,18 @@ class Site
     # Get the tree representation of our tags
     tags = Tags[@tags].tree
 
-    # Render our templates, passing in our tags as data
-    rendered = Renderer[@templates].render(out: @out, env: {tags: tags})
-
     # Render our styles 
     rendered_styles = Sass[@styles].render(out: @out)
 
-    # Cache-bust our rendered styles
-    Buster.new(rendered_styles).bust(preserve_original: false).replace_in(rendered)
+    # Cache-bust our rendered styles (do this before, otherwise we get issues with
+    # live-server and the listener).
+    busted = Buster.new(rendered_styles).bust(preserve_original: false)
+
+    # Render our templates, passing in our tags as data
+    rendered = Renderer[@templates].render(out: @out, env: {tags: tags})
+
+    busted.replace_in(rendered)
+
 
   end
 

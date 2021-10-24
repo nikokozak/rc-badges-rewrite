@@ -1,4 +1,5 @@
 require_relative 'sass.rb'
+require_relative 'renderer.rb'
 
 ##
 # Handles the creation of "tag trees", i.e. hashes with nodes describing
@@ -33,6 +34,8 @@ class Tags
         if File.file?(f) && is_svg?(f)
           node = build_node(f)
           cat = node[:category]
+          # TODO: Clean this up
+          node[:copyable] = Renderer.new('../templates').render_internal('_tag.erb', {tag: node})
           result[cat] = (result[cat] || []).push(node)
           result
         else

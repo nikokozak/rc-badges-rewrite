@@ -1,12 +1,13 @@
 <% tags.each do |category, tags| %>
   <h2><%= category %></h2>
-  <div id="content">
+  <div class="tag-cards">
     <% tags.each do |tag| %>
       <div class="card">
         <div class="viewer">
-          <div class="<%= tag[:filename] %>">
-            <%= render_internal "_tag.erb", {tag: tag} %>
-          </div>
+          <%= render_internal "_tag.erb", {tag: tag} %>
+          <textarea style="display: none;" >
+            <%= tag[:copyable] %>
+          </textarea>
         </div>
         <div class="info">
           <p><%= tag[:title] %></p>

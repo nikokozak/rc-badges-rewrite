@@ -1,0 +1,110 @@
+* {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  margin: 0;
+}
+
+body {
+  max-width: 680px;
+  margin: 0 auto 0 auto;
+}
+
+header {
+  text-align: center;
+}
+header h1 {
+  font-weight: 400;
+  font-size: 2.3rem;
+  margin-bottom: 0.7rem;
+}
+header h3 {
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.tags {
+  display: inline-block;
+}
+.tags p {
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  background-color: black;
+  color: white;
+  border-radius: 0.3em;
+}
+.tags p:first-child {
+  margin-left: 0;
+}
+
+#content {
+  margin-top: 2em;
+}
+#content h2 {
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 3rem;
+}
+#content .tag-cards {
+  display: flex;
+  margin-bottom: 3rem;
+}
+#content .tag-cards .card {
+  width: 312px;
+  height: 312px;
+}
+#content .tag-cards .card .viewer {
+  width: 100%;
+  height: 65%;
+  background-color: #777777;
+  border-radius: 0.3em 0.3em 0 0;
+  text-align: center;
+}
+#content .tag-cards .card .info {
+  width: 100%;
+  height: 35%;
+  border: 1px solid lightgray;
+  border-radius: 0 0 0.3em 0.3em;
+  padding: 1.5em;
+  box-sizing: border-box;
+  text-align: center;
+}
+#content .tag-cards .card .info p {
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 1em;
+}
+#content .tag-cards .card .info button {
+  border: 1px solid #0275d8;
+  background-color: transparent;
+  padding: 0.5em 1em 0.5em 1em;
+  border-radius: 0.3em;
+  color: #0275d8;
+  transition: color 0.5s, background-color 0.5s;
+}
+#content .tag-cards .card .info button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #0275d8;
+}
+#content .tag-cards .card:not(:first-child) {
+  margin-left: 2rem;
+}
+
+.rc-tag {
+  width: 50px;
+  display: inline-block;
+}
+
+.a_second_logo {
+  margin-top: 60px;
+}
+
+a {
+  font-family: sans-serif;
+}
+
+/*# sourceMappingURL=main.css.map */

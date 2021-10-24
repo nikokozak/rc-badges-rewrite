@@ -8,7 +8,7 @@
     <header>
       <div>
         <img id="site-logo" src="./logo.svg" />
-        <h1><strong>RC</strong> Tags</h1>
+        <h1><strong>RC</strong> TAGS</h1>
         <h3><strong>Recurse Center</strong> bling for your awesome projects!</h3>
 
         <div class="tags">
@@ -17,13 +17,34 @@
           <p>#WOW</p>
         </div>
 
-        <h3>Sup</h3>
         <div class="tags">
         </div>
       </div>
     </header>
-    <content>
+    <div id="content">
       <%= render_internal "_categories.erb", {tags: tags} %>   
-    </content>
+    </div>
   </body>
+
+<script>
+  const tag_cards = document.querySelectorAll(".card");
+
+  console.log(tag_cards)
+  for (const tag_card of tag_cards) {
+      const to_copy = tag_card.querySelector("textarea");
+      const button = tag_card.querySelector("button");
+      button.addEventListener('click', function(e) {
+        to_copy.style.display = "block"
+        to_copy.select()
+        try {
+          return document.execCommand("copy");
+        } catch (ex) {
+          console.warn("copy to clipboard failed")
+          return false;
+        } finally {
+          to_copy.style.display = "none"
+        }
+      })
+  }
+</script>
 </html>
