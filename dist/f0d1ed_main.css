@@ -1,0 +1,44 @@
+* {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+}
+
+body {
+  max-width: 810px;
+  margin: 0 auto 0 auto;
+}
+
+header {
+  text-align: center;
+}
+header h1 {
+  font-weight: 400;
+}
+header h3 {
+  font-weight: 400;
+}
+
+.tags {
+  display: inline-block;
+}
+.tags p {
+  display: inline-block;
+  margin-left: 1em;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: black;
+  color: white;
+  border-radius: 0.3em;
+}
+.tags p:first-child {
+  margin-left: 0;
+}
+
+.rc-tag {
+  width: 50px;
+}
+
+a {
+  font-family: sans-serif;
+}
+
+/*# sourceMappingURL=main.css.map */
