@@ -69,4 +69,17 @@ class Renderer
     template.result b
   end
 
+  def load_style(file)
+    if Sass.is_sass?(file)
+      new_file = Sass.call_sass(file)
+      File.read(new_file)
+    else
+      File.read(file)
+    end
+  end
+
+  def load_svg(file)
+    File.read(file)
+  end
+
 end

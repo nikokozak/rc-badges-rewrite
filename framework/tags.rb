@@ -31,11 +31,9 @@ class Tags
   def tree
     Dir.chdir(@directory) do
       Dir['**/*'].reduce({}) do |result, f|
-        if File.file?(f) && is_svg?(f)
+        if File.file?(f) && is_erb?(f)
           node = build_node(f)
           cat = node[:category]
-          # TODO: Clean this up
-          node[:copyable] = Renderer.new('../templates').render_internal('_tag.erb', {tag: node})
           result[cat] = (result[cat] || []).push(node)
           result
         else
@@ -61,8 +59,9 @@ class Tags
     title = basename_to_title(basename)
     css_path = ensure_exists(change_extension(file, ".css"))
     style = File.read(css_path)
-    svg_path = file
-    svg_contents = File.read(svg_path)
+    svg_path = exists_or_false(change_extension(file, ".svg"))
+    svg_contents = svg_path ? File.read(svg_path) : false
+    html = Renderer.new.render_internal(file)
 
     { title: title,
       basename: basename,
@@ -70,7 +69,9 @@ class Tags
       svg_path: svg_path,
       svg_contents: svg_contents,
       path: File.realpath(file),
-      category: category }
+      category: category,
+      html: html,
+      copyable: html }
   end
 
   ##
@@ -125,6 +126,15 @@ class Tags
   end
 
   ##
+  # If a +file+ doesn't exist, returns false, otherwise returns the +file+
+  # Params:
+  # +file+:: filepath to check
+
+  def exists_or_false(file)
+    File.exist?(file) ? file : false
+  end
+
+  ##
   # Replace a +file+'s extension with a +new_extension+. New extension must include the period.
   # Params:
   # +file+:: filename string
@@ -141,6 +151,15 @@ class Tags
 
   def is_svg?(file)
     /\.svg\z/.match?(file)
+  end
+
+  ##
+  # Check if a given +file+ is an erb.
+  # Params:
+  # +file+:: filename string
+  
+  def is_erb?(file)
+    /\.erb\z/.match?(file)
   end
 
 end

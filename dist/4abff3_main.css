@@ -49,18 +49,21 @@ header h3 {
 }
 #content .tag-cards {
   display: flex;
-  margin-bottom: 3rem;
+  flex-wrap: wrap;
 }
 #content .tag-cards .card {
   width: 312px;
   height: 312px;
+  margin-bottom: 2rem;
 }
 #content .tag-cards .card .viewer {
+  position: relative;
   width: 100%;
   height: 65%;
   background-color: #777777;
   border-radius: 0.3em 0.3em 0 0;
   text-align: center;
+  overflow: hidden;
 }
 #content .tag-cards .card .info {
   width: 100%;
@@ -90,17 +93,21 @@ header h3 {
   color: white;
   background-color: #0275d8;
 }
-#content .tag-cards .card:not(:first-child) {
-  margin-left: 2rem;
+#content .tag-cards .card:not(:last-child) {
+  margin-right: 1.5rem;
 }
 
-.rc-tag {
-  width: 50px;
-  display: inline-block;
+.green-block-badge {
+  margin-top: 4em;
 }
 
-.a_second_logo {
-  margin-top: 60px;
+.white-block-badge {
+  margin-top: 4em;
+}
+
+.recurse-center-seal {
+  margin-top: 3.5em;
+  margin-left: 7em;
 }
 
 a {

@@ -1,0 +1,31 @@
+$green: #61ae24
+
+@mixin ribbon-styles
+	
+	position: absolute
+	font-family: 'Open Sans', sans-serif
+	display: block
+	overflow: hidden
+	white-space: nowrap
+	margin: 1px 0
+	padding: 0.5em 3em
+
+	a
+		font-size: 0.85em
+		color: inherit
+		text-decoration: none
+
+	a:visited, a:active, a:hover, a:focus
+		color: inherit
+
+	.icon-svg
+		svg
+			height: 1.5em
+			margin-bottom: -0.3em
+			margin-right: 0.3em
+
+	span
+		text-align: center
+		text-decoration: none
+
+	@content

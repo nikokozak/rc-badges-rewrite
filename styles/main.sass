@@ -48,18 +48,21 @@ header
 
 	.tag-cards
 		display: flex
-		margin-bottom: 3rem
+		flex-wrap: wrap
 
 		.card
 			width: 312px
 			height: 312px
+			margin-bottom: 2rem
 
 			.viewer
+				position: relative
 				width: 100%
 				height: 65%
 				background-color: #777777
 				border-radius: 0.3em 0.3em 0 0
 				text-align: center
+				overflow: hidden
 
 			.info
 				width: 100%
@@ -89,14 +92,18 @@ header
 					color: white
 					background-color: $highlight-color
 
-		.card:not(:first-child)
-			margin-left: 2rem
-.rc-tag
-	width: 50px
-	display: inline-block
+		.card:not(:last-child)
+			margin-right: 1.5rem
 
-.a_second_logo
-	margin-top: 60px
+.green-block-badge
+	margin-top: 4em
+
+.white-block-badge
+	margin-top: 4em
+
+.recurse-center-seal
+	margin-top: 3.5em
+	margin-left: 7em
 
 a
 	font-family: sans-serif

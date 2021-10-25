@@ -1,0 +1,22 @@
+.rc-recurse-center-seal {
+  position: absolute;
+  font-family: "Open Sans", sans-serif;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 1px 0;
+  padding: 1em 1.5em;
+  border-radius: 10em;
+  background-color: #61ae24;
+  color: black;
+  border: 2px solid black;
+}
+.rc-recurse-center-seal a {
+  text-decoration: none;
+}
+.rc-recurse-center-seal .icon-svg svg {
+  height: 2.5em;
+  margin-top: 0.3em;
+}
+
+/*# sourceMappingURL=recurse-center-seal.css.map */

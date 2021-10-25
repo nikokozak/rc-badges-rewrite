@@ -1,0 +1,33 @@
+.rc-ribbon-top-left {
+  position: absolute;
+  font-family: "Open Sans", sans-serif;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 1px 0;
+  padding: 0.5em 3em;
+  transform: rotate(-45deg);
+  top: 4em;
+  left: -4em;
+  background-color: #61ae24;
+  color: white;
+}
+.rc-ribbon-top-left a {
+  font-size: 0.85em;
+  color: inherit;
+  text-decoration: none;
+}
+.rc-ribbon-top-left a:visited, .rc-ribbon-top-left a:active, .rc-ribbon-top-left a:hover, .rc-ribbon-top-left a:focus {
+  color: inherit;
+}
+.rc-ribbon-top-left .icon-svg svg {
+  height: 1.5em;
+  margin-bottom: -0.3em;
+  margin-right: 0.3em;
+}
+.rc-ribbon-top-left span {
+  text-align: center;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=ribbon-top-left.css.map */
