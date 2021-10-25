@@ -1,0 +1,31 @@
+@use 'common'
+
+.rc-pill
+
+	@include common.pill-styles
+
+	font-size: 0.85em
+		
+	color: white
+
+	a 
+		display: flex
+	
+		div:first-child
+			background-color: #555
+			border-radius: 0.4em 0 0 0.3em
+			padding: 0.2em 0.5em 0.2em 0.6em
+
+		div:last-child
+			padding: 0.2em 0.6em 0.2em 0.4em
+			background-color: common.$green
+			border-radius: 0 0.4em 0.4em 0
+
+	.highlight
+		color: common.$green
+
+	.icon-svg
+		svg
+			margin: 0
+			margin-bottom: -0.1em
+			height: 1em

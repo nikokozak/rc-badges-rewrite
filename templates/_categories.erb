@@ -4,12 +4,17 @@
     <% tags.each do |tag| %>
       <div class="card">
         <div class="viewer">
+
+          <!-- the tag -->
           <div class="<%= tag[:basename] %>">
             <%= tag[:html] %>
           </div>
+
+          <!-- clipboard mechanism -->
           <textarea style="display: none;" >
-            <%= tag[:copyable] %>
+            <%= tag[:html] %>
           </textarea>
+
         </div>
         <div class="info">
           <p><%= tag[:title] %></p>

@@ -27,11 +27,8 @@ class Site
 
   def build
 
-    # Render any sass files in our tags folder
-    Sass[@tags].render
-
     # Get the tree representation of our tags
-    tags = Tags[@tags].tree
+    tags = Tags[@tags].build
 
     # Render our styles 
     rendered_styles = Sass[@styles].render(out: @out)

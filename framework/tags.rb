@@ -28,7 +28,7 @@ class Tags
   # The parent folder for any given svg file is used as its category,
   # which becomes the key in the map holding it and its sibling tags.
 
-  def tree
+  def build
     Dir.chdir(@directory) do
       Dir['**/*'].reduce({}) do |result, f|
         if File.file?(f) && is_erb?(f)
@@ -57,21 +57,13 @@ class Tags
     category = parent == "." ? to_symbol(@directory) : to_symbol(parent)
     basename = basename(file)
     title = basename_to_title(basename)
-    css_path = ensure_exists(change_extension(file, ".css"))
-    style = File.read(css_path)
-    svg_path = exists_or_false(change_extension(file, ".svg"))
-    svg_contents = svg_path ? File.read(svg_path) : false
     html = Renderer.new.render_internal(file)
 
     { title: title,
       basename: basename,
-      style: style,
-      svg_path: svg_path,
-      svg_contents: svg_contents,
       path: File.realpath(file),
       category: category,
-      html: html,
-      copyable: html }
+      html: html }
   end
 
   ##

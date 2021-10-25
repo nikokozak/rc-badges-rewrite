@@ -63,7 +63,7 @@ class Sass
     out_dir = out_dir ? out_dir : dirname
     output_file = File.join(out_dir, basename.sub(/\.[a-zA-Z0-9]+\z/, ".css"))
 
-    %x{sass #{input_file} #{output_file}}
+    %x{sass --no-source-map #{input_file} #{output_file}}
     p "Sass compiled #{ input_file } -> #{ output_file }"
 
     Sass.sanitize_paths(output_file)
