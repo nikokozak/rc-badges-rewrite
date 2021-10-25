@@ -120,6 +120,10 @@ header #site-logo {
   margin-left: 2.5em;
 }
 
+.recurse-center-pill {
+  margin-top: 6em;
+}
+
 a {
   font-family: sans-serif;
 }
