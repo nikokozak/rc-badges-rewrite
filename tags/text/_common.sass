@@ -1,0 +1,29 @@
+$green: #61ae24
+
+@mixin text-styles
+	
+	position: absolute
+	font-family: 'Open Sans', sans-serif
+	display: block
+	margin: 1px 0
+
+	a
+		font-size: 0.85em
+		color: inherit
+		text-decoration: none
+
+	a:visited, a:active, a:hover, a:focus
+		color: inherit
+
+	.icon-svg
+		svg
+			height: 1.3em
+			margin-bottom: -0.3em
+			margin-right: 0.3em
+			fill: red
+
+	span
+		text-align: center
+		text-decoration: none
+
+	@content

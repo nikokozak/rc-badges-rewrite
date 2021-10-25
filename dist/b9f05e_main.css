@@ -110,6 +110,11 @@ header h3 {
   margin-left: 7em;
 }
 
+.recurse-center-text-label {
+  margin-top: 6em;
+  margin-left: 2.5em;
+}
+
 a {
   font-family: sans-serif;
 }
