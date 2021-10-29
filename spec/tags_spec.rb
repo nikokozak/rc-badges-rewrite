@@ -9,31 +9,31 @@ describe Tags do
       FileUtils.mkdir_p("tag_tests")
       FileUtils.mkdir_p("tag_tests/tag_1")
       FileUtils.mkdir_p("tag_tests/tag_2")
-      File.write("tag_tests/tag_1/one.svg", "svg content")
-      File.write("tag_tests/tag_2/two.svg", "svg content")
+      File.write("tag_tests/tag_1/one.erb", "erb content")
+      File.write("tag_tests/tag_2/two.erb", "erb content")
       File.write("tag_tests/tag_1/one.css", "css content")
-      File.write("tag_tests/tag_2/two.css", "svg content")
+      File.write("tag_tests/tag_2/two.css", "css content")
     end
 
     before :each do
-      @tags = Tags.new("tag_tests")
+      @tags = Tags["tag_tests"]
     end
 
     it "should create a hash tree" do
-      expect(@tags.tree.is_a? Hash).to be true
+      expect(@tags.build.is_a? Hash).to be true
     end
 
     it "should have parent folders as keys" do
-      tree = @tags.tree
+      tree = @tags.build
       expect(tree[:tag1]).to be_truthy
       expect(tree[:tag2]).to be_truthy
     end
 
     it "should have base directory as key if not nested" do
-      File.write("tag_tests/one.svg", "svg_content")
+      File.write("tag_tests/one.erb", "erb_content")
       File.write("tag_tests/one.css", "css_content")
 
-      tree = @tags.tree
+      tree = @tags.build
 
       expect(tree[:tagtests]).to be_truthy
       expect(tree[:tag1]).to be_truthy
@@ -41,21 +41,20 @@ describe Tags do
     end
 
     it "should have nodes with correct non-nil content" do
-      tree = @tags.tree
+      tree = @tags.build
       tree.each do |key, nodes| 
         nodes.each do |node|
           expect(node[:title]).to be_truthy
           expect(node[:basename]).to be_truthy
-          expect(node[:svg_path]).to be_truthy
-          expect(node[:svg_contents]).to be_truthy
           expect(node[:path]).to be_truthy
           expect(node[:category]).to be_truthy
+          expect(node[:html]).to be_truthy
         end
       end
     end
 
     it "should have categories as symbols" do
-      tree = @tags.tree
+      tree = @tags.build
       tree.each do |key, nodes| 
         nodes.each do |node|
           expect(node[:category].is_a? Symbol).to be true

@@ -36,7 +36,7 @@ describe Renderer do
     end
 
     it "correctly renders self-contained content to new dir" do
-      Renderer['render_tests'].render("./render_dist")
+      Renderer['render_tests'].render(out: "./render_dist")
 
       expect(File.exist? "./render_dist/index.html").to be true
       expect(File.exist? "./render_tests/index.html").to be false
@@ -45,7 +45,7 @@ describe Renderer do
 
     it "correctly preserves folder structure in new dir" do
       File.write("render_tests/nested/another.erb", "<p>Hi</p>")
-      Renderer['render_tests'].render("./render_dist")
+      Renderer['render_tests'].render(out: "./render_dist")
 
       expect(File.exist? "./render_dist/index.html").to be true
       expect(File.exist? "./render_tests/index.html").to be false

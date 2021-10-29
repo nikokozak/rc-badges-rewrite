@@ -30,16 +30,22 @@ class Tags
 
   def build
     Dir.chdir(@directory) do
+
       Dir['**/*'].reduce({}) do |result, f|
         if File.file?(f) && is_erb?(f)
+
           node = build_node(f)
           cat = node[:category]
           result[cat] = (result[cat] || []).push(node)
           result
+
         else
+
           result
+
         end
       end
+
     end
   end
 
